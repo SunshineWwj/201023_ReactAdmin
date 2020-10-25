@@ -1,0 +1,133 @@
+
+前端：react全家桶+Antd+Axios+ES6+webpack
+后端：node+express+Mongodb
+
+采用模块化 组件化 工程化 的模式开发
+
+==========================================================
+全局安装脚手架  npm install -g create-react-app（之前安装过可忽略此步骤）
+//创建项目
+
+create-react-app 项目名称  
+
+cd 项目  //进入项目
+
+npm start  //运行项目
+
+
+//打包发布
+
+npm build  //打包项目
+
+npm install -g serve  //安装运行build文件的serve
+
+serve build   //运行build下的文件
+
+
+开始码代码之前 先去github上新建一个仓库  ReactAdmin
+
+针对本地代码生成本地仓库
+
+git bash 创建的项目
+
+先去查看.gitignore 文件里面 不需要上传的文件 是否已经标注（缺少的就添加，如本项目中添加了/.idea）
+
+然后在项目根目录下 执行命令 
+git  init
+git add .  //添加到暂存区域
+git commit -m "init app"  //提交到暂存区域 并备注提交信息‘init  app’
+git remote add origin https://github.com/SunshineWwj/201023_ReactAdmin.git  
+git push origin master   //推送分支 master 到远程仓库
+
+
+git checkout -b dev  //本地创建dev分支 ，用于开发
+git push origin dev  //将本地分支dev  推送到 远程仓库
+
+ //如果已经有项目在远程仓库，直接克隆项目到本地即可，然后按需执行以下命令
+git clone  https://github.com/SunshineWwj/201023_ReactAdmin.git 
+git branch   //查看当前分支  master
+git checkout -b dev origin/dev  //根据远程dev分支 生成本地dev分支 
+git branch  //当前分支即为  dev
+git pull origin dev  //将远程分支dev的更新  拉取到本地 
+
+
+配置好目录结构
+
+然后引入需要的包进行开发
+
+yarn antd  //下载antd
+yarn add react-app-rewired  customize-cra  babel-plugin-import  //依据antd官网提示 安装这些插件
+
+写的时候 记得在入口index.js入口文件中  引入antd的样式（import 'antd/dist/antd.css'）
+
+然后要实现按需打包，需要在根目录新建  config-overrides.js 文件，文件中添加以下内容
+const {override,fixBabelImports}=require('customize-cra')
+module.exports=override(
+    //针对antd实现按需打包：根据import来打包（使用babel-plugin-import）
+    fixBabelImports('import',{
+        libraryName:'antd',
+        libraryDirectory:'es',
+        style:'css',//自动打包相关的样式
+    })
+)
+
+再修改package.json 文件中的srcipts中的配置：
+将其中的react-scripts  替换为 react-app-rewired，结果如下
+"scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
+  },
+
+
+yarn add less less-loader  //安装less-loader
+再次修改config-overrides.js文件
+最终改成如下：
+const {override,fixBabelImports,addLessLoader}=require('customize-cra')
+
+module.exports=override(
+    //针对antd实现按需打包：根据import来打包（使用babel-plugin-import）
+    fixBabelImports('import',{
+        libraryName:'antd',
+        libraryDirectory:'es',
+        style:true,//自动打包相关的样式
+    }),
+    addLessLoader({
+        lessOptions: {
+            javascriptEnabled:true,
+            modifyVars:{'@primary-color':'#1DA57A' } //更改主题颜色
+          },
+    })
+)
+
+新建文件之后 可以使用vscode  可以使用快捷键生成基本文件模板，快捷键rcc
+yarn add react-router-dom  //引入路由
+开始项目路由的配置
+登录页面写好，发送请求
+yarn add axios  //安装axios用于发送请求
+
+然后封装自己的ajax请求库
+[配置对象的属性名 不可更改]
+
+请求产生跨域的三种可能
+1》协议名不一样，如：http - https
+2》主机名不一样， 如：localhost - baidu/xinlang
+3》端口号不一样，如：3000 - 3001/5000/...
+
+解决方案：
+1》jsonP请求方式，但只能解决get请求的跨越
+2》cors  后台允许跨域
+3》代理  如：代理服务器接收到请求3000，转发到3001/5000等等
+在package.json 文件中添加 "proxy":"http://localhost:5000"  //修改了配置文件 需重启项目
+
+async 和 await
+1》作用
+    简化promise对象的使用：不用再使用then()来指定成功/失败的回调函数
+    以 同步 编码方式（没有回调函数了） 实现异步流程
+2》哪里写await？
+    在返回promise的表达式左侧写await：不要promise，想要promise异步执行的成功的value数据
+3》哪里写async？
+    await所在函数（最近的）定义的左侧
+
+
