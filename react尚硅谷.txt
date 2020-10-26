@@ -131,3 +131,6 @@ async 和 await
     await所在函数（最近的）定义的左侧
 
 
+本地存储当前登录信息lo
+1.方法一：localStorage //永久性存储 ，但是浏览器兼容性不高
+2.方法二：yarn store  //用第三方的store来存储，且支持对象直接存储，会自动转json格式

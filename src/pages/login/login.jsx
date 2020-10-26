@@ -6,9 +6,12 @@
 import React, { Component } from 'react'
 import './login.less'
 import logo from './images/logo.png'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {reqLogin} from '../../api'
+import  memoryUtils from '../../utils/memoryUtils'
+import storageUtils from '../../utils/storageUtils'
+import {Redirect} from 'react-router-dom'
 export default class Login extends Component {
      onFinish = async (values) => {
          //校验通过，请求登录
@@ -29,18 +32,35 @@ export default class Login extends Component {
         // }
 
         //3.ajax优化后的写法（请求失败直接报错）
-        const respone=await reqLogin(username,password);
-        console.log('请求成功了：',respone.data)
+        // const result=await reqLogin(username,password);//{status:0,data:user} 或者 {status:1,msg:'xxx'}
+        // if(result.status===0){//登录成功
+        //     const user=result.user;
+        //     memoryUtils.user=user   //用户信息保存在内存中
+        //     storageUtils.saveUser(user) //用户信息保存到local中
+        //     message.success('登录成功');
+        //     this.props.history.replace('/admin')//跳转管理界面 (用replace表示不需要再回退到登录)
+        // }else{//登录失败
+        //     message.error(result.msg);
+        //     this.props.history.replace('/admin')
+        // }
+
+
+        //============有接口了可删除-start===================
+        const user={_id:1,username,password}
+        memoryUtils.user=user
+        storageUtils.saveUser(user)
+        this.props.history.replace('/')
+        //============有接口了可删除-end===================
 
       };
       formRef = React.createRef();
       componentDidMount(){
-          console.log('formRef:',this.formRef)
-          this.formRef.current.setFieldsValue({
-                username: 'Bamboo',
-            });
+        //   console.log('formRef:',this.formRef)
+        //   this.formRef.current.setFieldsValue({
+        //         username: 'Bamboo',
+        //     });
         }
-      validatePwd=(rule,value)=>{
+      validatePwd = (rule,value) => {
           if(!value){
               return Promise.reject('密码不能为空');
           }else if(value.length<4){
@@ -54,6 +74,11 @@ export default class Login extends Component {
           }
       }
     render() {
+        //如果用户已经登录，自动跳转到管理界面
+        const user=memoryUtils.user
+        if(user && user._id){
+            return <Redirect to='/'/>
+        }
         return (
             <div className='login'>
                 <header className='login-header'>
@@ -63,12 +88,13 @@ export default class Login extends Component {
                 <section  className='login-content'>
                     <h2>用户登录</h2>
                     <Form
-                     ref={this.formRef}
+                        ref={this.formRef}
                         name="normal_login"
                         className="login-form"
                         initialValues={{ remember: true }}
                         onFinish={this.onFinish}>
                     <Form.Item
+                        initialValue='admin'
                         name="username"
                         rules={[
                             { required: true, message: '请输入用户名' },

@@ -3,8 +3,11 @@
  * 封装axios库(axios请求返回的就是promise对象)
  * 函数的返回值是promise对象
  * 
- * 进一步优化代码？
- *      在
+ * 优化1：统一处理请求异常？
+ *      在外层包一个自己创建的promise对象
+ *      在请求出错时，补reject(error)，而是显示错误信息
+ * 优化2：异步得到不是response，而是response.data
+ *      在请求成功resolve时，reslove(response.data)
  */
 import axios from 'axios'
 import {message} from 'antd'
@@ -23,7 +26,7 @@ export default function ajax(url,data={},type='GET'){
         }
         // 2.如果成功了，调用resolve(value)
         promise.then(response=>{
-            resolve(response)
+            resolve(response.data) //成功返回data
 
             // 3.如果失败了，不调用reject(reason)，而是提示错误信息
         }).catch(err=>{
