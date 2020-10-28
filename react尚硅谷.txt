@@ -151,3 +151,23 @@ withRouter高阶组件：
 启动web项目  cd react-admin-client->yarn start ->localhost://3000
 
 
+
+yarn add jsonp //添加jsonp请求库 ，请求百度天气
+新注册用户已不被支持请求天气接口，用下面的请求可以：
+`http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
+
+jsonp相关知识点：
+>jsonp只支持GET类型的ajax跨域请求
+>jsonp请求不是ajax请求，儿是一般的get请求
+>基本原理
+    1》浏览器端：
+    动态生成<script>来请求后台接口(src就是接口的url)，
+    定义好用于接收响应数据的函数(fn),并将函数名通过请求参数提交给后台（如：callback=fn）
+    2》服务器端：
+    接收到请求 处理产生结果数据后，返回一个函数调用的js代码，并将结果数据作为实参 传入函数调用
+    3》浏览器端：
+    收到响应自动执行函数调用的js代码，也就执行力提前定义好的回调函数，得到需要的结果数据
+
+
+
+
