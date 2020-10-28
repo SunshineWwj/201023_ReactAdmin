@@ -144,3 +144,10 @@ withRouter高阶组件：
 
 如项目中<LeftNav>左侧菜单栏组件中 想获取路由信息来获取当前路径从而指定哪个菜单被选中
 ==================================withRouter=======================================================
+
+
+添加了exoress+node构建的后台项目（api）  模拟后台数据
+启动后台项目  cd api->npm start ->localhost://3001
+启动web项目  cd react-admin-client->yarn start ->localhost://3000
+
+

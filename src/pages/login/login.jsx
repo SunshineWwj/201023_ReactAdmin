@@ -32,24 +32,24 @@ export default class Login extends Component {
         // }
 
         //3.ajax优化后的写法（请求失败直接报错）
-        // const result=await reqLogin(username,password);//{status:0,data:user} 或者 {status:1,msg:'xxx'}
-        // if(result.status===0){//登录成功
-        //     const user=result.user;
-        //     memoryUtils.user=user   //用户信息保存在内存中
-        //     storageUtils.saveUser(user) //用户信息保存到local中
-        //     message.success('登录成功');
-        //     this.props.history.replace('/admin')//跳转管理界面 (用replace表示不需要再回退到登录)
-        // }else{//登录失败
-        //     message.error(result.msg);
-        //     this.props.history.replace('/admin')
-        // }
+        const result=await reqLogin(username,password);//{status:0,data:user} 或者 {status:1,msg:'xxx'}
+        if(result.status===0){//登录成功
+            const user=result.data.user;
+            memoryUtils.user=user   //用户信息保存在内存中
+            storageUtils.saveUser(user) //用户信息保存到local中
+            message.success('登录成功');
+            this.props.history.replace('/admin')//跳转管理界面 (用replace表示不需要再回退到登录)
+        }else{//登录失败
+            message.error(result.msg);
+            this.props.history.replace('/admin')
+        }
 
 
         //============有接口了可删除-start===================
-        const user={_id:1,username,password}
-        memoryUtils.user=user
-        storageUtils.saveUser(user)
-        this.props.history.replace('/')
+        // const user={_id:1,username,password}
+        // memoryUtils.user=user
+        // storageUtils.saveUser(user)
+        // this.props.history.replace('/')
         //============有接口了可删除-end===================
 
       };

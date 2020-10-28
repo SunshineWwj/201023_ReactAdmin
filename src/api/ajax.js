@@ -26,12 +26,13 @@ export default function ajax(url,data={},type='GET'){
         }
         // 2.如果成功了，调用resolve(value)
         promise.then(response=>{
-            resolve(response.data) //成功返回data
+            console.log('response:',response)
+            resolve(response.data.data) //成功返回data
 
             // 3.如果失败了，不调用reject(reason)，而是提示错误信息
         }).catch(err=>{
             //reject(err)
-            message.error('请求出错了:'+err.message)
+            message.error('请求出错了:'+err.msg)
         })
     })
 }

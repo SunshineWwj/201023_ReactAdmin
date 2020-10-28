@@ -23,7 +23,6 @@ const {  Footer, Sider, Content } = Layout;
 export default class Admin extends Component {
     render() {
         const user=memoryUtils.user
-        console.log('user:',user)
         //如果内存没有存储user ==>表示当前没有登录
         if(!user || !user._id){
             //自动跳转到登录(在render()中)
