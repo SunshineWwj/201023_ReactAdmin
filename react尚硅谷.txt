@@ -158,7 +158,7 @@ yarn add jsonp //添加jsonp请求库 ，请求百度天气
 
 jsonp相关知识点：
 >jsonp只支持GET类型的ajax跨域请求
->jsonp请求不是ajax请求，儿是一般的get请求
+>jsonp请求不是ajax请求，而是一般的get请求
 >基本原理
     1》浏览器端：
     动态生成<script>来请求后台接口(src就是接口的url)，
