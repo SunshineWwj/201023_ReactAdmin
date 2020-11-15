@@ -148,7 +148,7 @@ withRouter高阶组件：
 
 添加了exoress+node构建的后台项目（api）  模拟后台数据
 启动后台项目  cd api->npm start ->localhost://3001
-启动web项目  cd react-admin-client->yarn start ->localhost://3000
+启动web项目  cd react-admin-client->npm start ->localhost://3000
 
 
 
@@ -167,6 +167,9 @@ jsonp相关知识点：
     接收到请求 处理产生结果数据后，返回一个函数调用的js代码，并将结果数据作为实参 传入函数调用
     3》浏览器端：
     收到响应自动执行函数调用的js代码，也就执行力提前定义好的回调函数，得到需要的结果数据
+
+
+
 
 
 

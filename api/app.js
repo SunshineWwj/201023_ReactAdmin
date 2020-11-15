@@ -26,7 +26,7 @@ app.use('/users', usersRouter);
 app.use('/testApi', require('./routes/testApi'));
 app.use('/list', require('./routes/dataList'));
 
-app.use('/api/',require('./routes/reactAdmin.js'))
+app.use('/api/', require('./routes/reactAdmin.js'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

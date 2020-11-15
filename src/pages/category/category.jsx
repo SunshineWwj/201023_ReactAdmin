@@ -3,32 +3,16 @@
  * 品类管理
  */
 import React, {Component} from 'react';
-import {Card, Button, Table} from 'antd';
+import {Card, Button, Table, message} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
+import {reqCategories, reqCategoryDetail} from '../../api';
 export default class Category extends Component {
-    render() {
-        const dataSource = [
-            {
-                parentId: '0',
-                _id: '0001',
-                name: '家用电器',
-                _v: 0
-            },
-            {
-                parentId: '0',
-                _id: '0002',
-                name: '电脑',
-                _v: 0
-            },
-            {
-                parentId: '0',
-                _id: '0003',
-                name: '图书',
-                _v: 0
-            }
-        ];
-          
-        const columns = [
+    state={
+        dataSource: []
+    }
+    // eslint-disable-next-line react/no-deprecated
+    componentWillMount() {
+        this.columns = [
             {
                 title: '一级分类名称',
                 dataIndex: 'name',
@@ -39,14 +23,31 @@ export default class Category extends Component {
                 width: 300,
                 dataIndex: '',
                 key: 'action',
-                render: () => (
+                render: (text, record) => (
                     <span>
-                        <Button type="link">修改分类</Button>
+                        <Button type="link" onClick={() => this.getCategoryDetail(record.id)}>修改分类</Button>
                         <Button type="link">查看子分类</Button>
                     </span>
                 )
             },
         ];
+    }
+    componentDidMount() {
+        reqCategories().then(res => {
+            console.log('list:', res);
+            if(res.status === 0)
+                this.setState({dataSource: res.data});
+            else
+                message.warn('获取列表失败');
+        });
+    }
+    getCategoryDetail = id => {
+        reqCategoryDetail(id).then(res => {
+            console.log('detail:', res);
+        });
+    }
+    render() {
+        const {dataSource = []} = this.state;
           
         return (
             <Card
@@ -55,8 +56,9 @@ export default class Category extends Component {
                 extra={<Button type="primary" icon={<PlusOutlined />}>添加</Button>} >
                 <Table
                     bordered
+                    rowKey="id"
                     dataSource={dataSource}
-                    columns={columns} />
+                    columns={this.columns} />
             </Card>
         );
     }

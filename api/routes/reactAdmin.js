@@ -37,27 +37,28 @@ router.get('/manage/category/list/:id', async(req, res, next) => {
     const options = {
         id: req.params.id
     };
+    console.log('apiDetail:', req.params.id);
     res.json({
         data: {
             status: 0,
             data: [
                 {
                     parentId: '0001',
-                    _id: '00001',
+                    id: '00001',
                     name: '洗衣机',
-                    _v: 0
+                    v: 0
                 },
                 {
                     parentId: '0001',
-                    _id: '00002',
+                    id: '00002',
                     name: '电视',
-                    _v: 0
+                    v: 0
                 },
                 {
                     parentId: '0001',
-                    _id: '00003',
+                    id: '00003',
                     name: '冰箱',
-                    _v: 0
+                    v: 0
                 },
             ]
         }
@@ -67,6 +68,54 @@ router.get('/manage/category/list/:id', async(req, res, next) => {
 * 商品分类列表
 */
 router.get('/manage/category/list', (req, res, next) => {
+    res.json({
+        data: {
+            status: 0,
+            data: [
+                {
+                    parentId: '0',
+                    id: '0001',
+                    name: '家用电器',
+                    v: 0
+                },
+                {
+                    parentId: '0',
+                    id: '0002',
+                    name: '电脑',
+                    v: 0
+                },
+                {
+                    parentId: '0',
+                    id: '0003',
+                    name: '图书',
+                    v: 0
+                },
+                {
+                    parentId: '0',
+                    id: '0004',
+                    name: '服装',
+                    v: 0
+                },
+                {
+                    parentId: '0',
+                    id: '0005',
+                    name: '鞋子',
+                    v: 0
+                }
+            ]
+        }
+    });
+});
+
+/*
+* 添加商品分类列表
+*/
+router.post('/manage/category/add', (req, res, next) => {
+    const options = {
+        id: req.params.parentId,
+        name: req.query.categoryName,
+    };
+    console.log(options);
     res.json({
         data: {
             status: 0,

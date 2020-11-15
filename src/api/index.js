@@ -17,6 +17,20 @@ export const reqLogin = (username, password) => ajax(`${BASE_URL}/login`, {usern
 //添加用户
 export const reqAddUser = user => ajax(`${BASE_URL}/manage/user/add`, user, 'POST');
 
+//获取一级/二级分类的列表
+export const reqCategories = () => ajax(`${BASE_URL}/manage/category/list`);
+
+//获取二级分类的列表
+export const reqCategoryDetail = id => ajax(`${BASE_URL}/manage/category/list/${id}`,);
+
+//添加分类
+export const addCategory = (parentId, categoryName) => ajax(`${BASE_URL}/manage/category/add`, {parentId,
+    categoryName}, 'POST');
+
+//更新分类
+export const updateCategory = ({categoryId, categoryName}) => ajax(`${BASE_URL}/manage/category/update`, {categoryId,
+    categoryName}, 'POST');
+
 //jsonp请求的接口请求函数
 export const reqWeather = city => new Promise((resolve, reject) => {
     const url = `http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`;
