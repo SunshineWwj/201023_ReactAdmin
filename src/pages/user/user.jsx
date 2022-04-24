@@ -1,7 +1,7 @@
 /**
  * 用户管理
  */
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 
 export default class User extends Component {
     render() {
@@ -9,6 +9,6 @@ export default class User extends Component {
             <div>
                 user
             </div>
-        )
+        );
     }
 }

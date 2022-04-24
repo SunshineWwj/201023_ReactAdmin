@@ -1,7 +1,7 @@
 /**
  * 饼状图
  */
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 
 export default class Pie extends Component {
     render() {
@@ -9,6 +9,6 @@ export default class Pie extends Component {
             <div>
                 pie
             </div>
-        )
+        );
     }
 }

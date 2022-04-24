@@ -1,7 +1,7 @@
 /**
  * 折线图
  */
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 
 export default class Line extends Component {
     render() {
@@ -9,6 +9,6 @@ export default class Line extends Component {
             <div>
                 line
             </div>
-        )
+        );
     }
 }

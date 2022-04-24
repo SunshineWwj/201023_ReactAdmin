@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from 'moment';
 
 export const formatDateTime = (value, format) => {
     if(value && moment(value).isValid())

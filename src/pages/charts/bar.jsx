@@ -1,7 +1,7 @@
 /**
  * 柱状图
  */
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 
 export default class Bar extends Component {
     render() {
@@ -9,6 +9,6 @@ export default class Bar extends Component {
             <div>
                 bar
             </div>
-        )
+        );
     }
 }
